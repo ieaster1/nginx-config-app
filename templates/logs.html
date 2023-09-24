@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Log Viewer</h1>
+<h2>Server: {{ server_name }}</h2>
+<pre>{{ log_contents }}</pre>
+<script>
+    function autoReloadContent() {
+        location.reload();
+    }
+
+    setInterval(autoReloadContent, 5000); // 5000 ms = 5 seconds
+</script>
+{% endblock %}

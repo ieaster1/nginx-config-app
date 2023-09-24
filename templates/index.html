@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Configuration Name</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for config_name in configurations %}
+                <tr>
+                    <td>{{ config_name }}</td>
+                    <td>
+                        <a href="{{ url_for('edit', config_name=config_name) }}" class="btn btn-primary btn-sm">
+                            <i class="fas fa-pencil-alt"></i> Edit
+                        </a>
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <button onclick="confirmDelete('{{ config_name }}')" class="btn btn-danger btn-sm">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="pagination">
+        <ul class="pagination">
+          {% for page_num in range(1, (total_configurations // per_page) + 2) %}
+          <li class="page-item {% if page_num == page %}active{% endif %}">
+            <a class="page-link" href="{{ url_for('index', page=page_num, per_page=per_page) }}">{{ page_num }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+{% endblock %}

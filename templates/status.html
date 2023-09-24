@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<div id="content">
+  <h1>Nginx Status</h1>
+    {% for line in status_info %}
+        {{ line }}<br>
+    {% endfor %}
+</div>
+
+<div id="content" class="mt-5">
+    <small class="text-muted">
+      <h4>Status details</h4>
+      
+      <p><strong>Active connections</strong></p>
+      <p>The current number of active client connections including Waiting connections.</p>
+      <p><strong>accepts</strong></p>
+      <p>total number of accepted client connections.</p>
+      <p><strong>handled</strong></p>
+      <p> number of handled connections. Generally, the parameter value is the same as accepts unless some resource limits have been reached (for example, the worker_connections limit).</p>
+      <p><strong>requests</strong></p>
+      <p>The total number of client requests.</p>
+      <p><strong>Reading</strong></p>
+      <p>The current number of connections where nginx is reading the request header.</p>
+      <p><strong>Writing</strong></p>
+      <p>current number of connections where nginx is writing the response back to the client.</p>
+      <p><strong>Waiting</strong></p>
+      <p>The current number of idle client connections waiting for a request.</p>
+    </small>
+</div>
+<script>
+    function autoReloadContent() {
+        location.reload();
+    }
+
+    setInterval(autoReloadContent, 5000); // 5000 ms = 5 seconds
+</script>
+{% endblock %}
