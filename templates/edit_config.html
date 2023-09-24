@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Edit Configuration: <a href="http://{{ server_dns }}" target="_blank">{% if server_dns is not none %}{{ server_dns }}{% else %}{{ filename }}{% endif %}</a></h1>
+  <form method="POST">
+    <div class="form-group">
+      <textarea name="edited_content" class="form-control" rows="10">{{ config_content }}</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Save</button>
+    <a href="{{ url_for('index') }}" class="btn btn-secondary mt-2">Discard</a>
+  </form>
+{% endblock %}
