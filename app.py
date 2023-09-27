@@ -11,6 +11,10 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 app = Flask(__name__)
 app.secret_key = b'5rQl7PbSGn2A0_UOzBKsAw'
 
+@app.template_filter('config_rows')
+def config_rows(config_content):
+    return len(config_content.readlines())
+
 def list_nginx_configurations():
     nginx_configurations = []
     nginx_config_dir = '/etc/nginx/sites-available'
@@ -129,7 +133,9 @@ def edit(config_name):
     with open(config_path, 'r') as config_file:
         config_content = config_file.read()
 
-    return render_template('edit_config.html', filename=config_name, config_content=config_content, server_dns=server_dns)
+    config_rows = config_content.count('\n') + 1
+
+    return render_template('edit_config.html', filename=config_name, config_content=config_content, server_dns=server_dns, config_rows=config_rows)
 
 @app.route('/delete/<config_name>')
 def delete(config_name):

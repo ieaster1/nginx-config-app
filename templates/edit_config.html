@@ -1,12 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>Edit Configuration: <a href="http://{{ server_dns }}" target="_blank">{% if server_dns is not none %}{{ server_dns }}{% else %}{{ filename }}{% endif %}</a></h1>
-  <form method="POST">
-    <div class="form-group">
-      <textarea name="edited_content" class="form-control" rows="10">{{ config_content }}</textarea>
+  <div class="container mt-4">
+    <div class="card">
+      <div class="card-header bg-dark text-light">
+        <h1><i class="fa-solid fa-code"></i> Edit Configuration: <a class="link-warning link-offset-2 text-decoration-none link-opacity-50-hover" href="http://{{ server_dns }}" target="_blank">{% if server_dns is not none %}{{ server_dns }}{% else %}{{ filename }}{% endif %}</a></h1>
+      </div>
+      <div class="card-body">
+        <form method="POST">
+          <div class="form-group">
+            <textarea name="edited_content" class="form-control" rows="{{ config_rows|default(20) }}">{{ config_content }}</textarea>
+          </div>
+          <button type="submit" class="btn btn-primary mt-2">Save</button>
+          <a href="{{ url_for('index') }}" class="btn btn-secondary mt-2">Discard</a>
+        </form>
+      </div>
     </div>
-    <button type="submit" class="btn btn-primary mt-2">Save</button>
-    <a href="{{ url_for('index') }}" class="btn btn-secondary mt-2">Discard</a>
-  </form>
+  </div>
 {% endblock %}
